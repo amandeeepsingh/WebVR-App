@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame App</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+  </head>
+  <body>
+
+<script>
+  AFRAME.registerComponent('scale-on-click', {
+    schema: {
+      to: {default: '2.5 2.5 2.5'}
+    },
+    init: function () {
+      var data = this.data;
+      var text = document.getElementById('mainText');
+
+      this.el.addEventListener('click', function () {
+        this.setAttribute('scale', data.to);
+        text.setAttribute('value', 'Bye.');
+      });
+    }
+  });
+</script>
+
+    <a-scene>
+		<a-assets>
+			<img id="boxTexture" src="https://avatars3.githubusercontent.com/u/17678217?v=3&u=bf5576a369d5ae1338cde2775dd0fab35f77816a&s=400">
+			<img id="skyTexture"
+	      src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+			<img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+		</a-assets>
+
+		<a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
+		     scale-on-click="to: 2.3 2.3 2.3">
+			<a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+		  repeat="indefinite"></a-animation>
+		
+
+		  <a-animation attribute="scale" begin="mouseenter" dur="300" to="2.3 2.3 2.3"></a-animation>
+		  <a-animation attribute="scale" begin="mouseleave" dur="300" to="2 2 2"></a-animation>
+		  <a-animation attribute="rotation" begin="click" dur="2000" to="360 405 45"></a-animation>
+
+
+<a-sound src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay="true"
+    position="-3 1 -4"></a-sound>
+		</a-box>
+
+<a-text id="mainText" value="Welcome" color="#BBB"
+        position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+
+		<a-sky src="#skyTexture"></a-sky>
+
+		<a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30" repeat="10 10"></a-plane>
+
+		<a-light type="ambient" color="#445451"></a-light>
+		<a-light type="point" intensity="2" position="2 4 4"></a-light>
+
+		<a-camera>
+			<a-cursor></a-cursor>
+		</a-camera>
+
+    </a-scene>
+
+
+  </body>
+</html>
